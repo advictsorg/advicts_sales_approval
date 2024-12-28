@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="credit_limit_approval_tree" model="ir.ui.view">
+        <field name="name">credit.limit.approvals.tree</field>
+        <field name="model">credit.limit.approvals</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <tree sample="1"
+                  string="Credit limit Approval"
+                  decoration-info="state == 'waiting'"
+                  decoration-success="state == 'approved'">
+                <field name="state" invisible="1"/>
+                <field name="name"/>
+                <field name="state" string="State" widget="badge"
+                       decoration-muted="state == 'draft'"
+                       decoration-info="state == 'waiting'"
+                       decoration-success="state == 'approved'"/>
+            </tree>
+        </field>
+    </record>
+    <record id="credit_limit_approval_form" model="ir.ui.view">
+        <field name="name">credit.limit.approvals.form</field>
+        <field name="model">credit.limit.approvals</field>
+        <field name="arch" type="xml">
+            <form string="Credit limit Approval" create="true">
+                <header>
+                    <field name="is_approval_reject_button" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <button string="Submit" type="object" name="submit"
+                            class="oe_highlight"
+                            confirm="Are you sure to Submit the Approval Request?"
+                            invisible="state != 'draft'"
+
+                    />
+                    <button string="approve" type="object" name="approve"
+                            class="oe_highlight"
+                            confirm="Are you sure to Approve the Credit Limit?"
+                            invisible="not is_approval_reject_button or state != 'waiting'"
+                    />
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="company_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Credit Limit">
+                            <field name="approvals_lines" readonly="state != 'draft'" widget="one2many_list">
+                                <tree editable="bottom">
+                                    <field name="partner_id" required="1"
+                                    />
+                                    <field name="customer_blocking_limit"/>
+                                    <field name="customer_maximum_repayment_period"/>
+                                    <field name="new_customer_blocking_limit"/>
+                                    <field name="new_customer_maximum_repayment_period"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Approval">
+                            <field name="approvers" readonly="1" widget="one2many_list">
+                                <tree>
+                                    <field name="approval_id" invisible="1"/>
+                                    <field name="state"/>
+                                    <field name="user_id"/>
+                                    <field name="type"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_credit_limit_approval" model="ir.actions.act_window">
+        <field name="name">Credit limit Approval</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">credit.limit.approvals</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Credit Limit Approval</p>
+            <p>Process Stages to Credit Limit Approval</p>
+        </field>
+        <field name="domain"></field>
+        <field name="context">{'filter_by_user': True}</field>
+    </record>
+
+    <menuitem id="credit_limit_approval" name="Credit limit Approval" parent="contacts.menu_contacts"
+              action="action_credit_limit_approval" sequence="2"/>
+</odoo>

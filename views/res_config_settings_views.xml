@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="res_config_settings_view_form_dynamic_approval" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.dynamic.approval</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='quotation_order_setting_container']//setting[@id='proforma_configuration']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="dynamic_sale_approval">
+                    <div class="o_setting_left_pane">
+                        <field name="dynamic_approval"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="dynamic_approval"/>
+                        <div class="text-muted col-md-12">
+                            Approval Based on Rules
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" id="approved_user_ids">
+                    <div class="o_setting_left_pane">
+
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="approved_user_ids"/>
+                        <div class="text-muted col-md-12">
+                            Credit Limit Manager Approval
+                        </div>
+                        <div class="col-md-12">
+                            <field name="approved_user_ids" widget='many2many_tags'/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" id="directors_user_ids">
+                    <div class="o_setting_left_pane">
+<!--                        <field name="directors_user_ids" widget='many2many_tags'/>-->
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="directors_user_ids"/>
+                        <div class="text-muted col-md-12">
+                            Credit Limit Directors Approval
+                        </div>
+                        <div class="col-md-12">
+                            <field name="directors_user_ids" widget='many2many_tags'/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

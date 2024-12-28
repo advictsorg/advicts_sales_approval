@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+advicts_sales_approval.access_sale_approval,access_sale_approval,advicts_sales_approval.model_sale_approval,base.group_user,1,1,1,1
+advicts_sales_approval.access_sale_approval_line,access_sale_approval_line,advicts_sales_approval.model_sale_approval_line,base.group_user,1,1,1,1
+advicts_sales_approval.access_sale_order_approved,access_sale_order_approved,advicts_sales_approval.model_sale_order_approved,base.group_user,1,1,1,1
+advicts_sales_approval.access_sale_order_reject,access_sale_order_reject,advicts_sales_approval.model_sale_order_reject,base.group_user,1,1,1,1
+
+advicts_sales_approval.access_credit,access_credit,advicts_sales_approval.model_credit_limit_approvals,base.group_user,1,1,1,1
+advicts_sales_approval.access_credit_line,access_credit_line,advicts_sales_approval.model_credit_limit_approvals_line,base.group_user,1,1,1,1
+advicts_sales_approval.access_credit_app,access_credit_app,advicts_sales_approval.model_credit_limit_approver,base.group_user,1,1,1,1

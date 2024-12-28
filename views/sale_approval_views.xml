@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="sale_approval_form" model="ir.ui.view">
+        <field name="name">sale.approval.form</field>
+        <field name="model">sale.approval</field>
+        <field name="arch" type="xml">
+            <form string="Approval">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="type"/>
+                        <field name="team_id"/>
+                    </group>
+                    <group invisible="type != 'quantity'">
+                        <field name="minimum_qty"/>
+                        <field name="minimum_qty_type"/>
+                        <field name="is_cash_activate" />
+                    </group>
+                    <group invisible="type != 'discount'">
+                        <field name="minimum_discount"/>
+                        <field name="is_cash_activate" />
+                    </group>
+                    <group invisible="type != 'amount'">
+                        <field name="minimum_amount"/>
+                        <field name="days_limit"/>
+                        <!--                        <field name="is_sale_person" widget="boolean_toggle"/>-->
+                    </group>
+                    <notebook>
+                        <page string="Approval Details">
+                            <field name="sale_approval_line_ids">
+                                <tree>
+                                    <field name="level"/>
+                                    <field name="group_approve"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sale_approval_view_tree" model="ir.ui.view">
+        <field name="name">sale.approval.view.tree</field>
+        <field name="model">sale.approval</field>
+        <field name="arch" type="xml">
+            <tree string="Approval">
+                <field name="name"/>
+                <!--                <field name="minimum_amount"/>-->
+                <!--                <field name="is_sale_person" widget="boolean_toggle"/>-->
+            </tree>
+        </field>
+    </record>
+    <record id="sale_approval_action_view" model="ir.actions.act_window">
+        <field name="name">Approvals</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.approval</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="sale_approval_menu" name="Approval Configuration" parent="sale.menu_sale_config"
+              action="sale_approval_action_view" sequence="70"/>
+</odoo>
